@@ -20,44 +20,85 @@ This repository contains detailed instructions for setting up a **Windows Active
 - [Contributing](#contributing)
 - [License](#license)
 
-## Overview
+## Overview of The Active Directory Home Lab
 
-This home lab setup uses **VMware Workstation** to simulate a Windows Server 2022 environment with **Active Directory**. We’ve included multiple VMs, one for the primary domain controller (DC) and another for the secondary DC, simulating a failover setup. Additionally, two client machines are used to test Active Directory functionalities, and **osTicket** is installed to simulate a ticketing workflow.
+This home lab simulates a real-world **Windows Active Directory environment** using **VMware** **Workstation**. It consists of **two Windows Server VMs** (a **primary domain controller** and a backup for **failover scenarios**) plus **two client machines**. Through this setup, I gained hands-on experience with **Active Directory management,** **Group Policy configurations,** **Remote Desktop Protocol (RDP),** **user role management,** **and troubleshooting scenarios**.
 
-## Requirements
+The lab also features **osTicket,** an **open-source** **ticketing system,** which simulates **IT support and Help Desk workflows** while incorporating **PHP, MySQL, and IIS web server configurations.**
+
+This environment provided valuable practical experience in **user support, ticketing management, software troubleshooting, and database administration.**
+
+## You'll need the following:
 
 To complete this lab setup, the following software and tools are required:
 
-- **VMware Workstation** (for creating virtual machines)
-- **Windows Server 2022** (for Domain Controllers and Failover setup)
-- **Windows 10** (for client machines)
-- **Active Directory Domain Services (AD DS)** role for the domain controller
-- **PHP 8.2**, **MySQL**, and **osTicket** for the ticketing system
+- **VMware Workstation** For creating virtual machines (You could also use VirtualBox)
+- **Windows Server 2022** For Domain Controllers and Failover setup
+- **Windows 11** For client machines
+- **Active Directory Domain Services (AD DS)** Role for the domain controller
+- **PHP 8.2**, **MySQL**, and **osTicket** For the ticketing system
 
 ## Step-by-Step Setup
 
-### 1. VMware Configuration
+### 1. Prepare VMware Workstation
 - **Objective**: Set up VMware Workstation and create the VMs for primary server, secondary server (failover), and two client machines.
-- **Action**: 
-   - Install VMware Workstation.
-   - Create 4 VMs:
-     - **Primary Server VM** (Windows Server 2022).
-     - **Secondary Server VM** (Windows Server 2022).
-     - **Two Client VMs** (Windows 10).
+1. Open VMware Workstation
+2. Verify that bridged networking is enabled. This ensures all VMs can communicate with each other and your host machine.
+   - Go to Edit > Virtual Network Editor
+   - Select the network adapter you want to use for bridged networking (by default vmnet0) and ensure it’s connected to the correct physical network.
+     
+     ![Screenshot From 2025-01-30 18-10-00](https://github.com/user-attachments/assets/7cfe2977-de17-4cc0-afe1-58f5afadf828)
 
-### 2. Installing Windows Server
-- **Objective**: Install **Windows Server 2022** on both server VMs.
-- **Action**: 
-   - Follow installation procedures for Windows Server 2022.
-   - Set up basic configurations for both server VMs.
+### 2. Create the Virtual Machines
+We’ll now create four virtual machines:
+1. Windows Server (Domain Controller)
+2. Windows Server (Failover Setup)
+3. Client Machine 1
+4. Client Machine 2
 
-### 3. Configuring Active Directory (Primary Server)
-- **Objective**: Set up **Active Directory Domain Services (AD DS)** on the primary server.
-- **Action**: 
-   - Promote the **Primary Server VM** to a Domain Controller.
-   - Create the domain `lab.local` and configure DNS.
+### 3. Create the First Virtual Machine (Windows Server)
+1. Open VMware Workstation and click on File > New Virtual Machine.
+2. Select Custom (advanced) and click Next.
+   
+![Screenshot From 2025-01-30 18-12-28](https://github.com/user-attachments/assets/38e536a1-ab55-4203-93dc-2fff0f454480)
 
-### 4. Configuring Failover Scenarios (Secondary Server)
+3. For the hardware compatibility, choose the latest version supported by your VMware Workstation and click Next.
+
+![Screenshot From 2025-01-30 18-18-30](https://github.com/user-attachments/assets/13d8b1b4-8a6b-4fe5-9b62-04f03cb3d68e)
+
+4. Choose Install Operating System Later and click Next.
+
+![Screenshot From 2025-01-30 18-18-38](https://github.com/user-attachments/assets/7e775530-d985-440f-8133-f2880ed88e00)
+
+5. Select Microsoft Windows, and from the dropdown, select Windows Server 2022, then click Next.
+
+![Screenshot From 2025-01-30 18-18-46](https://github.com/user-attachments/assets/3edfbdbb-a3a8-47cf-b0e2-187b383ed678)
+
+6. Name your VM as “AD Home Lab - DC” (or similar) and choose a location for its files.
+
+![Screenshot From 2025-01-30 18-19-52](https://github.com/user-attachments/assets/38e19d35-fd14-4bef-b104-bb3543b5c7ca)
+
+7. Assign the VM:
+   - 4 GB RAM
+   - 2 Processors with 2 cores per processor
+
+![Screenshot From 2025-01-30 18-20-15](https://github.com/user-attachments/assets/cb032b7c-09bb-4c8c-8537-18dd5710d2b0)
+
+![Screenshot From 2025-01-30 18-20-26](https://github.com/user-attachments/assets/5568ef8b-f6fc-4920-bddc-87e7dcdeaaeb)
+
+8. Select Use Bridged Networking for the network type.
+
+![Screenshot From 2025-01-30 18-20-53](https://github.com/user-attachments/assets/62eced16-846f-45f9-81bf-c5869ff4dae5)
+
+9. Create a new virtual disk with at least 60GB of storage and click Finish.
+
+![Screenshot From 2025-01-30 18-21-06](https://github.com/user-attachments/assets/a5e81b75-9321-459e-a61b-18d90f9b7d60)
+
+![Screenshot From 2025-01-30 18-21-18](https://github.com/user-attachments/assets/3f2d836a-2baf-4c79-8faf-de1b7e5a0a74)
+
+![Screenshot From 2025-01-30 18-21-44](https://github.com/user-attachments/assets/7d2a5612-5c89-41f5-803f-410586eea6da)
+
+### 4. Install Windows Server
 - **Objective**: Set up the **Secondary Server VM** to handle failovers.
 - **Action**: 
    - Install **AD DS** on the Secondary Server VM and configure it as a **Read-Only Domain Controller (RODC)**.
@@ -104,14 +145,7 @@ To complete this lab setup, the following software and tools are required:
    - Test **osTicket** by submitting and resolving tickets.
    - Validate **failover** scenarios by simulating a Domain Controller failure.
 
-## Contributing
-
-If you'd like to contribute to this project or suggest improvements, feel free to fork the repository and submit a pull request with your changes.
-
-## License
-
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-Feel free to copy and paste this README.md into your GitHub repository! Let me know if you need further adjustments.
