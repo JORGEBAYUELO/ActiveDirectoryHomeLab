@@ -620,20 +620,20 @@ This involves promoting another server in the lab as a secondary (replica) domai
 
 ![Screenshot From 2025-01-31 15-54-00](https://github.com/user-attachments/assets/419ad7d1-455d-49f9-a3ba-5f92b468bf3a)
 
-4. Expand the Forest: adlab.local > Domains > adlab.local.
-5. Right-click adlab.local, then click Create a GPO in this domain, and Link it here.
+3. Expand the Forest: adlab.local > Domains > adlab.local.
+4. Right-click adlab.local, then click Create a GPO in this domain, and Link it here.
 
 ![Screenshot From 2025-01-31 15-54-37](https://github.com/user-attachments/assets/52f9cff1-5274-4c4a-81d8-1bf334234ec6)
 
-7. Name the GPO something descriptive, like Test-GPO.
+5. Name the GPO something descriptive, like Test-GPO.
 
 ![Screenshot From 2025-01-31 15-54-54](https://github.com/user-attachments/assets/b25f267d-4a87-4deb-98df-5617bc73269e)
 
-9. Open Active Directory Users and Computers.
-10. Rick-click on the domain name (adlab.local).
-11. Select New > Organizational Unit.
-12. Name the OU (e.g., TestOU).
-14. Move the test user we created before into the newly create OU:
+6. Open Active Directory Users and Computers.
+7. Rick-click on the domain name (adlab.local).
+8. Select New > Organizational Unit.
+9. Name the OU (e.g., TestOU).
+10. Move the test user we created before into the newly create OU:
   - Right-click the object (e.g., a user or computer), select Move, and choose the new OU.
 
   ![Screenshot From 2025-01-31 16-00-53](https://github.com/user-attachments/assets/f2c2dfab-c326-40cb-8286-639a246f4e40)
@@ -645,16 +645,78 @@ This involves promoting another server in the lab as a secondary (replica) domai
 ### 2. Editing the GPO
 1. Open Group Policy Management (gpmc.msc) from the Start menu or Server Manager.
 2. Right-click the newly created Test-GPO and click Edit.
+
+![Screenshot From 2025-01-31 16-01-39](https://github.com/user-attachments/assets/50555020-6079-46cf-b609-9333fdfa05ef)
+
 3. The Group Policy Management Editor will open.
 4. Example Policy 1: Disable Task Manager.
   - Navigate to User Configuration > Policies > Administrative Templates > System > Ctrl+Alt+Del Options.
+
+  ![Screenshot From 2025-01-31 16-03-13](https://github.com/user-attachments/assets/ff6e4d2d-8435-4f6b-b771-72e875379643)
+
   - Double-click Remove Task Manager and select Enabled. Click OK.
+
+  ![Screenshot From 2025-01-31 16-03-54](https://github.com/user-attachments/assets/e719ec64-a811-4900-93b2-56afba498df9)
+
+  ![Screenshot From 2025-01-31 16-04-31](https://github.com/user-attachments/assets/c215418c-ff21-49ff-b783-7fa70b20d19d)
+
 5. Close the editor when done.
+
+![Screenshot From 2025-01-31 16-04-38](https://github.com/user-attachments/assets/b097f584-5ed9-4906-94f7-595eed5dd1b9)
+ 
 6. In Group Policy Management Console (GPMC).
 7. Right-click the new OU and select Link an Existing GPO.
-8. Select Test-GPO and confirm the link.
-    
 
+![Screenshot From 2025-01-31 16-06-27](https://github.com/user-attachments/assets/b2ae9b4f-4412-4a89-99fd-58b6647a6d21)
+
+![Screenshot From 2025-01-31 16-06-40](https://github.com/user-attachments/assets/5d92b288-0a45-4a25-916b-9c025fe7013f)
+
+8. Select Test-GPO and confirm the link.
+
+![Screenshot From 2025-01-31 16-07-00](https://github.com/user-attachments/assets/64512f1e-5893-4e59-ae5e-34d75b1548fd)
+
+### 3. Applying the Policy
+1. Run gpupdate /force on the domain controller to update Group Policy.
+```PowerShell
+gpupdate /force
+```
+![Screenshot From 2025-01-31 16-08-19](https://github.com/user-attachments/assets/1005981e-7a6b-41ff-8f10-eec03d6b26cd)
+
+### 4. Testing the Policy
+1. Go to one of your client machines (e.g., Clien 1).
+2. Log in with a user account under the OU where the GPO is applied, in this case Test User.
+
+![Screenshot From 2025-01-31 16-09-17](https://github.com/user-attachments/assets/28ca2875-4348-433c-aa7f-7b238ee525f0)
+
+![Screenshot From 2025-01-31 16-11-33](https://github.com/user-attachments/assets/059d8ba8-5e3f-42bb-aa0e-67f0ceaf1330)
+
+3. Open PowerShell and run:
+```PowerShell
+gpresult /r
+```
+![Screenshot From 2025-01-31 16-12-11](https://github.com/user-attachments/assets/49beeeef-4552-4af7-b242-1504757b40d3)
+
+4. Confirm that the Test-GPO is listed under Applied Group Policy Objects.
+5. Try pressing Ctrl+Alt+Del and see if Task Manager is disabled.
+
+![Screenshot From 2025-01-31 16-12-56](https://github.com/user-attachments/assets/ff98d3a0-1251-45b8-a43d-cc66f20e46b0)
+
+## Testing User Roles:
+Ensure users have appropriate permissions based on their assigned roles within the Active Directory environment.
+### 1. Create the Roles OU and Groups
+1. Open Active Directory Users and Computers (ADUC).
+2. in the left-hand pane, right-click your domain (e.g., adlab.local) > New > Organizational Unit.
+3. Name the new OU: Roles.
+4. Click OK.
+### 2. Create Security Groups for Roles
+1. Navigate to the newly created Roles OU in the left-hand pane.
+2. Right-click the Roles OU > New > Group.
+3. Fill in the details:
+  - Group name: Start with the roles you want (e.g., Admin Role, IT Support Role, HR Role, Finance Role).
+  - Group scope: Choose Global.
+  - Group  type: Choose Security.
+4. Click OK.
+5. Repeat this process for each role you want to create.
 
 
 
