@@ -438,8 +438,222 @@ Once the preferred DNS is set up:
 
   ![Screenshot From 2025-01-30 20-30-25](https://github.com/user-attachments/assets/4515e349-2f89-4cac-a11a-a8fef18ccbd1)
 
+### 3. Test DNS Resolution
+1. Open Command Prompt on the client.
+2. Run the following command:
+```PowerShell
+nslookup adlab.local
+```
+## Simulating Failover Scenarios:
+**Objective:**
+Understand what happens when a domain controller goes offline and how client machines behave, particularly with cached credentials and resource availability.
+### 1. Setting up an Additional Domain Controller
+This involves promoting another server in the lab as a secondary (replica) domain controller.
+1. Open VMware Workstation and create a new virtual machine:
+  - Follow the same process we did for ADLab-DC1 to set up the first domain controller, but name it something like ADLab-DC2.
+  - Assign 4GB of RAM and at least 60GB of storage.
+2. Install Windows Server:
+  - Install the same version of Windows Server as the primary domain controller.
+  - Set the computer name to ADLab-DC2.
+3. Configure Networking:
+  - Assign a static IP address:
+    - Go to Control Panel > Network and Sharing Center > Change Adapter Settings.
+      
+      ![Screenshot From 2025-01-31 12-54-09](https://github.com/user-attachments/assets/9f5f8482-b45d-42f6-9b97-60c413a94646)
 
+      ![Screenshot From 2025-01-31 12-54-18](https://github.com/user-attachments/assets/c1e8fccc-a3eb-4e7b-81b6-d7bb5b9e52f8)
 
+    - Right-click the network adapter and select Properties.
+
+      ![Screenshot From 2025-01-31 12-54-27](https://github.com/user-attachments/assets/78d2f0cc-bb65-4023-bf77-d70a1b21f17d)
+
+    - Set the IP to a static address (e.g., 192.168.1.141).
+
+      ![Screenshot From 2025-01-31 12-55-27](https://github.com/user-attachments/assets/6cabf8ba-33f0-4ecf-973e-8947e6605de3)
+
+      ![Screenshot From 2025-01-31 13-01-47](https://github.com/user-attachments/assets/aa70fb0c-5f43-41fd-b72c-04891c3d2724)
+
+    - Use the IP of ADLab-DC1 (192.168.1.140) as the Preferred DNS server.
+4. Join the Domain:
+  - Go to Settings > System > About.
+
+    ![Screenshot From 2025-01-31 13-05-18](https://github.com/user-attachments/assets/9972be0d-06b1-485c-9b21-4eaed38a0380)
+
+  - Click Change settings > Change.
+
+    ![Screenshot From 2025-01-31 13-05-24](https://github.com/user-attachments/assets/4c6d893d-56b1-4325-8995-cd7436b3ed8d)
+
+  - Enter the domain name: adlab.local.
+
+    ![Screenshot From 2025-01-31 13-05-36](https://github.com/user-attachments/assets/f5930cbc-8868-4dc3-baa8-4049b4d83f8a)
+
+  - User the credentials of the domain administrator (e.g., adlab.local\Administrator).
+
+    ![Screenshot From 2025-01-31 13-06-16](https://github.com/user-attachments/assets/892d65b4-a738-4c9a-ac1c-6ba434592e07)
+
+    ![Screenshot From 2025-01-31 13-06-26](https://github.com/user-attachments/assets/532f1c2e-e0bb-4c83-bc48-56e9146a8127)
+
+  - Restart the server.
+
+    ![Screenshot From 2025-01-31 13-06-43](https://github.com/user-attachments/assets/a412bc59-dc48-4b3c-9695-ba94528c6e24)
+
+### 2. Promote to Domain Controller
+1. Log in with Domain Admin Credential:
+  - User adlab.local\Administrator or another admin account to log in to the server.
+
+  ![Screenshot From 2025-01-31 13-07-37](https://github.com/user-attachments/assets/05fc5ccd-67a3-429a-b9fd-e873b85db6fd)
+
+2. Add the AD DS Role:
+  - Open Server Manager.
+  - Click Add Roles and Features.
+
+  ![Screenshot From 2025-01-31 13-14-14](https://github.com/user-attachments/assets/d8112cd9-e36b-4f96-b20e-70e9f4e8b0ab)
+
+  ![Screenshot From 2025-01-31 13-14-36](https://github.com/user-attachments/assets/1eacbf15-d699-4006-a58c-3a9852a4badb)
+
+  ![Screenshot From 2025-01-31 13-14-43](https://github.com/user-attachments/assets/43dff6b1-f73a-4dd3-bf1c-51bf741a4f4a)
+
+  ![Screenshot From 2025-01-31 13-14-53](https://github.com/user-attachments/assets/f91f5d58-04ef-4b81-bf04-41e2dd871d48)
+
+  - Select Active Directory Domain Services (AD DS).
+
+  ![Screenshot From 2025-01-31 13-15-14](https://github.com/user-attachments/assets/b4a73917-1ce2-4bcf-b8c7-58fcf16f39d8)
+
+  - Add the required features when prompted and complete the installation.
+
+  ![Screenshot From 2025-01-31 13-15-21](https://github.com/user-attachments/assets/c7564e60-8d34-42b6-a717-798583710db9)
+
+  ![Screenshot From 2025-01-31 13-16-03](https://github.com/user-attachments/assets/68be2ae4-ab3b-4c44-991e-e8c479635004)
+
+3. Promote to Domain Controller:
+  - After the role is installed, click the notification flag in Server Manager and select Promote this server to a domain controller.
+
+  ![Screenshot From 2025-01-31 14-31-50](https://github.com/user-attachments/assets/05ffe48b-133c-4c4f-825a-f29b9bc43559)
+
+  - Choose Add a domain controller to an existing domain.
+    
+  ![Screenshot From 2025-01-31 14-33-52](https://github.com/user-attachments/assets/486bead7-b8e4-485f-9e34-3393bfae4366)
+
+  - Enter the domain name (adlab.local) and credentials for a domain admin account.
+
+  ![Screenshot From 2025-01-31 14-34-03](https://github.com/user-attachments/assets/51f1beba-b40d-4942-852f-286695afd4bc)
+
+  ![Screenshot From 2025-01-31 14-34-52](https://github.com/user-attachments/assets/43d3a4f1-d2e9-4ac0-8e70-d60465c47be5)
+
+  ![Screenshot From 2025-01-31 14-35-20](https://github.com/user-attachments/assets/e852a99c-4238-4224-9fb6-29260ab36d1a)
+
+  ![Screenshot From 2025-01-31 14-35-28](https://github.com/user-attachments/assets/e034b04c-bd3d-454f-9e55-cc3159c9e68f)
+  
+  - Configure the following:
+    - DNS: Leave enabled.
+    - Global Catalog: Ensure this is checked.
+    - Read-only domain controller: Leave unchecked.
+
+  ![Screenshot From 2025-01-31 14-36-36](https://github.com/user-attachments/assets/3bb9535e-9784-46da-9180-4402a2bc6427)
+
+  - Complete the wizard, and the server will restart after promotion.
+
+   ![Screenshot From 2025-01-31 14-38-10](https://github.com/user-attachments/assets/09929418-ca3c-403c-b9ec-cbd065c8726c)
+
+### 3. Validate the Setup
+1. Check AD Replication:
+  - On both ADLab-DC1 and ADLab-DC2, open Active Directory Sites and Services:
+    - Confirm that both domain controllers are listed and replication is configured.
+    
+    ![Screenshot From 2025-01-31 14-48-45](https://github.com/user-attachments/assets/b5bcb101-28ce-4dd3-a762-5c643ed1563e)
+
+  - Run the command:
+    ```PowerShell
+    repadmin /showrepl
+    ```
+    ![Screenshot From 2025-01-31 14-50-35](https://github.com/user-attachments/assets/bba53755-a561-4c01-bc33-5a6110cb32c7)
+
+  - Confirm replication status between the two domain controllers.
+2. Verify AD Objects:
+  - Open Active Directory Users and Computers on ADLab-DC2.
+  - Confirm that all the AD objects (users, group, etc.) are visible.
+
+  ![Screenshot From 2025-01-31 14-52-33](https://github.com/user-attachments/assets/933ee45d-60f9-4079-8be4-9d4ec28e2880)
+
+3. Test DNS:
+  - Run nslookup on ADLab-DC2 to ensure it resolves DNS queries correctly.
+
+  ![Screenshot From 2025-01-31 14-55-54](https://github.com/user-attachments/assets/d7a52fb8-bb32-4167-9194-1ff0130ea0d3)
+
+### 4. Test AD Authentication Using Secondary DNS Server
+1. Log in to Client 1 using a domain user account (e.g., John Doe).
+
+![Screenshot From 2025-01-31 14-59-03](https://github.com/user-attachments/assets/417a2806-76c6-44bb-9e80-88a023e5da90)
+
+3. Ensure that the Preferred DNS server on Client 1 is set to 192.168.1.141 (Secondary DC).
+
+![Screenshot From 2025-01-31 15-12-50](https://github.com/user-attachments/assets/04975283-ad8d-49ea-b2b3-954d69356208)
+
+5. Verify the following:
+  - Successful login to the domain.
+  - Access to any shared network resources or services.
+### 5. Test Active Directory Replication
+1. On Primary DC (192.168.1.140):
+  - Open Active Directory Users and Computers.
+  - Create a new test user.
+    - Example: Username: TestUser, Password: P@ssword123.
+    
+    ![Screenshot From 2025-01-31 15-16-33](https://github.com/user-attachments/assets/8781523c-54c2-421b-8d00-507d3b140303)
+
+    ![Screenshot From 2025-01-31 15-17-02](https://github.com/user-attachments/assets/840d41b6-098d-4e8d-befe-748a561fc57d)
+
+    ![Screenshot From 2025-01-31 15-17-19](https://github.com/user-attachments/assets/26002aa7-a26f-49e8-bb1f-882d352578e2)
+
+    ![Screenshot From 2025-01-31 15-17-25](https://github.com/user-attachments/assets/ae217b3c-d0e7-4cca-8d40-825b77f99925)
+
+  - Ensure the changes are saved.
+2. On Secondary DC (192.168.1.141):
+  - Open Active Directory Users and Computers.
+  - Verify that the new user or group appears on the secondary DC.
+
+  ![Screenshot From 2025-01-31 15-18-11](https://github.com/user-attachments/assets/4d2951fc-ea8e-426d-8fd9-7835a338e012)
+
+## Creating a New Group Policy Object (GPO):
+### 1. Create a New Group Policy Object and Organizational Unit
+1. Log in to the primary domain controller (ADLab-DC1).
+2. Open Group Policy Management (gpmc.msc) from the Start menu or Server Manager.
+
+![Screenshot From 2025-01-31 15-54-00](https://github.com/user-attachments/assets/419ad7d1-455d-49f9-a3ba-5f92b468bf3a)
+
+4. Expand the Forest: adlab.local > Domains > adlab.local.
+5. Right-click adlab.local, then click Create a GPO in this domain, and Link it here.
+
+![Screenshot From 2025-01-31 15-54-37](https://github.com/user-attachments/assets/52f9cff1-5274-4c4a-81d8-1bf334234ec6)
+
+7. Name the GPO something descriptive, like Test-GPO.
+
+![Screenshot From 2025-01-31 15-54-54](https://github.com/user-attachments/assets/b25f267d-4a87-4deb-98df-5617bc73269e)
+
+9. Open Active Directory Users and Computers.
+10. Rick-click on the domain name (adlab.local).
+11. Select New > Organizational Unit.
+12. Name the OU (e.g., TestOU).
+14. Move the test user we created before into the newly create OU:
+  - Right-click the object (e.g., a user or computer), select Move, and choose the new OU.
+
+  ![Screenshot From 2025-01-31 16-00-53](https://github.com/user-attachments/assets/f2c2dfab-c326-40cb-8286-639a246f4e40)
+
+  ![Screenshot From 2025-01-31 16-01-03](https://github.com/user-attachments/assets/f089013b-e925-483e-b6ed-d75ec8302875)
+
+  ![Screenshot From 2025-01-31 16-01-12](https://github.com/user-attachments/assets/1997c9db-3a89-47c6-af4d-d90b540f6fdb)
+
+### 2. Editing the GPO
+1. Open Group Policy Management (gpmc.msc) from the Start menu or Server Manager.
+2. Right-click the newly created Test-GPO and click Edit.
+3. The Group Policy Management Editor will open.
+4. Example Policy 1: Disable Task Manager.
+  - Navigate to User Configuration > Policies > Administrative Templates > System > Ctrl+Alt+Del Options.
+  - Double-click Remove Task Manager and select Enabled. Click OK.
+5. Close the editor when done.
+6. In Group Policy Management Console (GPMC).
+7. Right-click the new OU and select Link an Existing GPO.
+8. Select Test-GPO and confirm the link.
+    
 
 
 
