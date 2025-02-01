@@ -99,23 +99,91 @@ We’ll now create four virtual machines:
 ![Screenshot From 2025-01-30 18-21-44](https://github.com/user-attachments/assets/7d2a5612-5c89-41f5-803f-410586eea6da)
 
 ### 4. Install Windows Server
-- **Objective**: Set up the **Secondary Server VM** to handle failovers.
-- **Action**: 
-   - Install **AD DS** on the Secondary Server VM and configure it as a **Read-Only Domain Controller (RODC)**.
-   - Set up replication between the Primary and Secondary Domain Controllers.
-   - Simulate failover scenarios to ensure backup functionality.
+1. Mount your Windows Server ISO to the VM’s CD/DVD drive.
 
-### 5. Configuring Client Machines
-- **Objective**: Add two client VMs to the domain.
-- **Action**: 
-   - Join **two Windows 10 client VMs** to the `lab.local` domain.
-   - Test user login and domain communication.
+![Screenshot From 2025-01-30 18-42-12](https://github.com/user-attachments/assets/cfc6e71e-9ba7-4df1-ab7e-08992b85e628)
 
-### 6. Group Policy Configuration
-- **Objective**: Implement **Group Policies** to manage client machines.
-- **Action**: 
-   - Create Organizational Units (OUs) for users and groups.
-   - Implement **Group Policy Objects (GPOs)** to enforce domain policies like password complexity and user restrictions.
+2. Power on the VM and proceed with the Windows installation.
+
+![Screenshot From 2025-01-30 18-43-09](https://github.com/user-attachments/assets/d371a694-315b-4219-aecd-d487f1b180b5)
+
+3. During setup, choose a Custom Installation, create a partition, select Windows Server 2022 Standard Evaluation (Desktop Experience) which includes the GUI and complete the installation.
+
+![Screenshot From 2025-01-30 18-43-18](https://github.com/user-attachments/assets/549ba836-6e63-46e0-8b0a-ca08fac7bc68)
+
+![Screenshot From 2025-01-30 18-43-48](https://github.com/user-attachments/assets/3c5d62d9-cf5c-45c7-9212-5573d8a6fb75)
+
+![Screenshot From 2025-01-30 18-44-07](https://github.com/user-attachments/assets/e794d526-aeda-405d-b822-7a3dbd633309)
+
+![Screenshot From 2025-01-30 18-44-21](https://github.com/user-attachments/assets/375dde8d-0c89-4564-8f27-4449aa3a59e6)
+
+![Screenshot From 2025-01-30 18-44-32](https://github.com/user-attachments/assets/7cdb6f35-1e5f-4d64-81e3-bc4b276b2027)
+
+![Screenshot From 2025-01-30 18-44-40](https://github.com/user-attachments/assets/82c8e909-081e-4616-b417-a968e53572ff)
+
+![Screenshot From 2025-01-30 18-47-44](https://github.com/user-attachments/assets/c6f92ef3-aa0e-4164-a71f-2909d1b49711)
+
+![Screenshot From 2025-01-30 18-48-13](https://github.com/user-attachments/assets/68e4da8c-e794-4856-b388-9c371b064df4)
+
+### 5. Configure the Domain Controller
+We’ll now install the Active Directory Domain Services (AD DS) role and promote this server to a Domain Controller.
+1. Open Server Manager
+
+![Screenshot From 2025-01-30 18-48-40](https://github.com/user-attachments/assets/0c016ca3-f73f-49ec-8093-d82f89471a2f)
+
+2. Click on “Add roles and features” from the dashboard.
+3. In the wizard:
+  - Click Next on the “Before You Begin” screen.
+
+  ![Screenshot From 2025-01-30 18-50-11](https://github.com/user-attachments/assets/b9f7e1a3-dc6e-47d0-ae1e-6f3ac522183c)
+
+  - Select Role-based or feature-based installation and click Next.
+
+  ![Screenshot From 2025-01-30 18-50-26](https://github.com/user-attachments/assets/f69dea53-a199-44db-bdcd-100009974aad)
+
+  - Confirm the local server is selected and click Next.
+
+  ![Screenshot From 2025-01-30 18-50-47](https://github.com/user-attachments/assets/82d439e0-a7d6-4ab6-b96d-c01805e61058)
+
+4. In the “Server Roles” section:
+  - Check Active Directory Domain Services.
+  - Click Add Features when prompted, then click Next.
+
+  ![Screenshot From 2025-01-30 18-51-46](https://github.com/user-attachments/assets/eff8fdf9-02cb-4328-9753-625e028ea986)
+
+5. Click Next on the “Features” screen.
+
+![Screenshot From 2025-01-30 18-58-46](https://github.com/user-attachments/assets/796c4ead-fbf8-4640-8fc6-0ab16ae394f3)
+
+6. On the “AD DS” screen, read the description and click Next.
+
+![Screenshot From 2025-01-30 18-59-36](https://github.com/user-attachments/assets/c46ddd11-2ee9-4102-b34e-d39fa707129c)
+
+7. Click Install on the confirmation screen (no need to restart yet).
+
+![Screenshot From 2025-01-30 19-00-09](https://github.com/user-attachments/assets/6eafbacf-0507-4b4f-8742-94de7ebcc772)
+
+### 6. Promote the Server to a Domain Controller
+1. After Installation, a notification will appear in the top-right corner of Server Manager.
+  - Click Promote this server to a domain controller.
+    
+  ![Screenshot From 2025-01-30 19-03-41](https://github.com/user-attachments/assets/960531b5-2092-4a2d-b362-d039d4b951e5)
+
+2. In the Active Directory Domain Services Configuration Wizard:
+  - Choose Add a new forest.
+  - Enter a domain name (e.g., adlab.local) and click Next.
+  
+  ![Screenshot From 2025-01-30 19-05-01](https://github.com/user-attachments/assets/9ccbc45d-312a-49bf-8b4b-29722a204abe)
+
+3. Set a Directory Services Restore Mode (DSRM) password, make sure Domain Name System (DNS) server and Global Catalog (GC) are checked and click Next.
+
+![Screenshot From 2025-01-30 19-05-59](https://github.com/user-attachments/assets/85e70eb1-cee1-4549-9e6b-aa6a5d356244)
+
+4. Proceed through the rest of the wizard with default settings (click Next until you reach the Install button).
+5. Click Install to promote the server. The system will reboot when the installation is complete.
+
+![Screenshot From 2025-01-30 19-08-01](https://github.com/user-attachments/assets/b6d99170-fe71-4e99-82e4-7a4313dbd940)
+
 
 ### 7. Simulating Failover Scenarios
 - **Objective**: Test the failover setup between the primary and secondary domain controllers.
