@@ -706,19 +706,128 @@ Ensure users have appropriate permissions based on their assigned roles within t
 ### 1. Create the Roles OU and Groups
 1. Open Active Directory Users and Computers (ADUC).
 2. in the left-hand pane, right-click your domain (e.g., adlab.local) > New > Organizational Unit.
+
+![Screenshot From 2025-01-31 16-43-12](https://github.com/user-attachments/assets/925093d4-bb00-4970-9e3d-3d72f0e7b4fa)
+
+![Screenshot From 2025-01-31 16-43-35](https://github.com/user-attachments/assets/9a6e4545-8047-4403-8519-3f3accaef281)
+
 3. Name the new OU: Roles.
+
+![Screenshot From 2025-01-31 16-44-00](https://github.com/user-attachments/assets/91167c84-de1a-4728-ac95-a576203bb92b)
+
 4. Click OK.
 ### 2. Create Security Groups for Roles
 1. Navigate to the newly created Roles OU in the left-hand pane.
 2. Right-click the Roles OU > New > Group.
+
+![Screenshot From 2025-01-31 16-44-32](https://github.com/user-attachments/assets/c78567a1-5ea0-4882-89b2-83bb8db2deaf)
+
 3. Fill in the details:
   - Group name: Start with the roles you want (e.g., Admin Role, IT Support Role, HR Role, Finance Role).
   - Group scope: Choose Global.
   - Group  type: Choose Security.
+
+![Screenshot From 2025-01-31 16-45-09](https://github.com/user-attachments/assets/c0ed8aa3-eaa7-4eba-9243-d7f29288a320)
+
+![Screenshot From 2025-01-31 16-45-34](https://github.com/user-attachments/assets/1709cb18-dc53-4ff1-92cb-8d4fc4b3ae95)
+
 4. Click OK.
 5. Repeat this process for each role you want to create.
 
+![Screenshot From 2025-01-31 16-46-39](https://github.com/user-attachments/assets/a001d4eb-69d5-4283-be10-91196d26e940)
 
+### 3. Assign Users to Groups
+Once you’ve created the groups, assign users to their appropriate roles.
+1. Go to the Users containers or the OU where your user accounts (e.g., John Doe, Tester User) are located.
+2. Right-click a user (e.g., John Doe) > Add to Group.
+
+![Screenshot From 2025-01-31 16-48-18](https://github.com/user-attachments/assets/da1f3300-a0d4-4613-b751-48a24e17a53d)
+
+3. In the Enter the object names to select box:
+  - Type the name of the group (e.g., IT Support Role) and click Check Names.
+
+  ![Screenshot From 2025-01-31 16-48-59](https://github.com/user-attachments/assets/83883abf-8778-4fc8-a281-11bd5994f7fa)
+
+  - Click OK.
+
+  ![Screenshot From 2025-01-31 16-49-09](https://github.com/user-attachments/assets/6981d8b0-8b72-40d8-81df-5f3a4b65a79b)
+
+  ![Screenshot From 2025-01-31 16-49-41](https://github.com/user-attachments/assets/1e8b4cb9-18b8-4979-ac0e-8a01e0ba3bfb)
+  
+4. Repeat this process for all users and their respective groups.
+
+## Create a Shared Folder and Assign Permissions:
+### 1. Create a Shared Folder
+1. On one of the domain controllers:
+  - Navigate to a directory (e.g., D:\Shared).
+
+  ![Screenshot From 2025-01-31 17-02-28](https://github.com/user-attachments/assets/23e27a1a-d7d7-4429-8efc-7222670f0a35)
+
+  - Right-click and Select New Folder. Name it something like FinanceDocs, HRFiles, or ITSupportFiles.
+
+  ![Screenshot From 2025-01-31 17-04-45](https://github.com/user-attachments/assets/0938c81b-a775-4463-bb22-36213ae2ed61)
+
+2. Right-click the folder > Properties > Sharing tab > Advanced Sharing.
+
+![Screenshot From 2025-01-31 17-29-09](https://github.com/user-attachments/assets/25660fbe-3bc7-465b-a72d-4584ac19869c)
+
+![Screenshot From 2025-01-31 17-29-36](https://github.com/user-attachments/assets/1dfb361d-77b0-43d3-a928-ee49f5058576)
+
+  - Check Share this folder and provide a Share name (e.g., FinanceDocs).
+
+  ![Screenshot From 2025-01-31 17-30-25](https://github.com/user-attachments/assets/c2a87867-a4af-4b1e-b47e-4129d2bc16c6)
+
+  - Click Permissions, remove Everyone, and Add the corresponding group (e.g., Finance Role).
+
+  ![Screenshot From 2025-01-31 17-30-34](https://github.com/user-attachments/assets/08a3a5a6-3e30-40d9-94a7-2cd482eef70c)
+
+  ![Screenshot From 2025-01-31 17-30-40](https://github.com/user-attachments/assets/7cba99ae-152e-49ef-a084-e72001e38b3b)
+
+  ![Screenshot From 2025-01-31 17-31-00](https://github.com/user-attachments/assets/49d1f736-cbcb-45eb-8f10-a1e1ece70301)
+
+  - Assign the group Full Control, Change, or Read access as needed.
+
+  ![Screenshot From 2025-01-31 17-31-16](https://github.com/user-attachments/assets/59a5192d-c8ee-441c-a238-731558d8af33)
+
+### 2. Set NTFS Permissions
+1. Still in the folder properties, go to the Security tab > Edit.
+
+![Screenshot From 2025-01-31 17-37-10](https://github.com/user-attachments/assets/4e55c395-255c-47fb-b488-34035228abee)
+
+2. Remove unnecessary users/groups and Add the security group (e.g., Finance Role).
+
+![Screenshot From 2025-01-31 17-38-03](https://github.com/user-attachments/assets/195ffb6a-7eca-4b6a-a442-42fb8ae2ae51)
+
+![Screenshot From 2025-01-31 17-38-15](https://github.com/user-attachments/assets/b97697b3-3a4e-40e7-b8e1-306afd0ee053)
+
+3. Assign appropriate NTFS permissions (e.g., Read, Modify, etc.).
+
+![Screenshot From 2025-01-31 17-38-37](https://github.com/user-attachments/assets/a97aa109-0351-427c-a459-9a02140a080f)
+
+4. Click OK to save the settings.
+
+![Screenshot From 2025-01-31 17-38-43](https://github.com/user-attachments/assets/1441916c-de7b-4cde-b047-56bb09b22516)
+
+## Map a Network Drive On Client Machine:
+1. Open File Explorer.
+2. Right-click on This PC or Network and choose Map Network Drive.
+
+![Screenshot From 2025-01-31 17-05-54](https://github.com/user-attachments/assets/fe323175-8f76-4883-ba37-667ff926abdb)
+
+3. Assign a drive letter (e.g., E:) and enter the shared folder path (e.g., \\192.168.1.141\FinanceDocs).
+
+![Screenshot From 2025-01-31 17-09-01](https://github.com/user-attachments/assets/b5aa4856-f884-4b1d-9c6b-714fc0ddf23d)
+
+4. Check Reconnect at sign-in if you want the mapping to persist.
+
+![Screenshot From 2025-01-31 17-09-16](https://github.com/user-attachments/assets/226fd93f-0058-4182-8c43-164c93a51155)
+
+5. Click Finish.
+
+![Screenshot From 2025-01-31 17-32-13](https://github.com/user-attachments/assets/893c0c37-0c4f-4805-958a-2206f47cbe05)
+
+## Setting Up a VPN Server:
+### 1. Install the Remote Access Role
 
 
 
