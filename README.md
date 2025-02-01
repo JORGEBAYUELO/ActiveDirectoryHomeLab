@@ -38,7 +38,7 @@ To complete this lab setup, the following software and tools are required:
 - **Active Directory Domain Services (AD DS)** Role for the domain controller
 - **PHP 8.2**, **MySQL**, and **osTicket** For the ticketing system
 
-## Step-by-Step Setup
+## VMware Set up:
 
 ### 1. Prepare VMware Workstation
 - **Objective**: Set up VMware Workstation and create the VMs for primary server, secondary server (failover), and two client machines.
@@ -98,7 +98,7 @@ We’ll now create four virtual machines:
 
 ![Screenshot From 2025-01-30 18-21-44](https://github.com/user-attachments/assets/7d2a5612-5c89-41f5-803f-410586eea6da)
 
-### 4. Install Windows Server
+## Installing Windows Server 2022:
 1. Mount your Windows Server ISO to the VM’s CD/DVD drive.
 
 ![Screenshot From 2025-01-30 18-42-12](https://github.com/user-attachments/assets/cfc6e71e-9ba7-4df1-ab7e-08992b85e628)
@@ -125,7 +125,8 @@ We’ll now create four virtual machines:
 
 ![Screenshot From 2025-01-30 18-48-13](https://github.com/user-attachments/assets/68e4da8c-e794-4856-b388-9c371b064df4)
 
-### 5. Configure the Domain Controller
+## Configure the Domain Controller:
+### 1. Setting up Active Directory Domain Services
 We’ll now install the Active Directory Domain Services (AD DS) role and promote this server to a Domain Controller.
 1. Open Server Manager
 
@@ -163,7 +164,7 @@ We’ll now install the Active Directory Domain Services (AD DS) role and promot
 
 ![Screenshot From 2025-01-30 19-00-09](https://github.com/user-attachments/assets/6eafbacf-0507-4b4f-8742-94de7ebcc772)
 
-### 6. Promote the Server to a Domain Controller
+### 2. Promote the Server to a Domain Controller
 1. After Installation, a notification will appear in the top-right corner of Server Manager.
   - Click Promote this server to a domain controller.
     
@@ -184,7 +185,7 @@ We’ll now install the Active Directory Domain Services (AD DS) role and promot
 
 ![Screenshot From 2025-01-30 19-08-01](https://github.com/user-attachments/assets/b6d99170-fe71-4e99-82e4-7a4313dbd940)
 
-### 7. Verify and Configure Active Directory
+### 3. Verify and Configure Active Directory
 Let’s verify the domain setup setup and configure additional features:
 **Check Domain configuration**
 1. Open Server Manager.
@@ -197,7 +198,7 @@ Let’s verify the domain setup setup and configure additional features:
 
   ![Screenshot From 2025-01-30 19-15-27](https://github.com/user-attachments/assets/f588f7ff-31cb-42f2-baa6-86e4801d1334)
 
-**Create a Test User**
+### 4. Create a Test User
 1. In Active Directory Users and Computers:
   - Right-click on Users (or create a new Organizational Unit [OU] for better organization).
   - Select New > Users.
@@ -215,7 +216,8 @@ Let’s verify the domain setup setup and configure additional features:
 
 4. Complete the wizard.
 
-### 8. Enable Remote Desktop Protocol (RDP)
+## Enable Remote Desktop Protocol (RDP):
+### 1. Enabling and Configuring Remote Desktop Protocol (RDP)
 1. Open Server Manager and click Local Server on the left panel.
 2. Find Remote Desktop, click Disabled, and enable it:
   - Check Allow remote connection to this computer.
@@ -227,7 +229,7 @@ Let’s verify the domain setup setup and configure additional features:
 
 3. Apply the changes.
 
-**Test RDP Connections**
+### 2. Test RDP Connections
 Prepare the Server for RDP:
 1. Ensure the John Doe user (or any test user you created) has permission to use Remote Desktop:
   - Open System Properties (right-click “This PC” > Properties > Remote Settings).
@@ -246,7 +248,7 @@ Prepare the Server for RDP:
 
   ![Screenshot From 2025-01-30 19-26-28](https://github.com/user-attachments/assets/06a4700f-38f7-4c84-a911-8892ddb9b7b4)
 
-**Use RDP from Another Device**
+### 3. Use RDP from Another Device
 Let’s now connect to the server using RDP from one of the client machines and the host machine:
 1. Since I’m using Linux as host OS, I’ll be using an RDP client called Remmina.
   - Open Remmina
@@ -267,8 +269,8 @@ Let’s now connect to the server using RDP from one of the client machines and 
 
 ![Screenshot From 2025-01-30 19-33-42](https://github.com/user-attachments/assets/b8befa9c-85a4-48ad-936a-6ee0a35f8cc1)
 
-### 9. Create the Windows Clients VMs
-**Configuring VMware Settings**
+## Create the Windows Clients VMs:
+### 1. Configuring VMware Settings
 1. Open VMware Workstation and click File > New Virtual Machine.
 2. Select Custom (advanced) and click Next.
 
@@ -308,7 +310,7 @@ Let’s now connect to the server using RDP from one of the client machines and 
 
 ![Screenshot From 2025-01-30 19-47-34](https://github.com/user-attachments/assets/f869cecb-f880-4933-8bc3-d988f19dfba6)
 
-### 10. Install Windows 11
+## Install Windows 11:
 1. Mount your Windows 11 to the VM’s CD/DVD drive.
 
 ![Screenshot From 2025-01-30 19-48-09](https://github.com/user-attachments/assets/579c8c64-3542-486b-b69e-98a9ea68da4a)
@@ -366,7 +368,8 @@ Let’s now connect to the server using RDP from one of the client machines and 
 
   ![Screenshot From 2025-01-30 20-15-11](https://github.com/user-attachments/assets/776d845c-6b1f-44c4-966d-c5fa4dbdcac4)
 
-### 11. Configure DNS on the Client VM
+## Configure DNS on the Client VM:
+### 1. Configuring preferred DNS on the Clien VM
 Once the Windows installation is complete:
 1. Log in with the local administrator account you created.
 2. Check Network Configuration:
@@ -408,7 +411,7 @@ Once the Windows installation is complete:
 
   ![Screenshot From 2025-01-30 20-27-51](https://github.com/user-attachments/assets/c6420e2a-437a-4f5d-a3ff-b846dd1c3710)
 
-### 12. Configure Network and Join the Domain
+### 2. Configure Network and Join the Domain
 Once the preferred DNS is set up:
 1. Join the Domain:
   - Open System Properties (right-click “This PC” > Properties > Advanced System Settings > Computer Name tab).
