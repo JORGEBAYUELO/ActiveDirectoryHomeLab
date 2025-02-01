@@ -184,27 +184,124 @@ We’ll now install the Active Directory Domain Services (AD DS) role and promot
 
 ![Screenshot From 2025-01-30 19-08-01](https://github.com/user-attachments/assets/b6d99170-fe71-4e99-82e4-7a4313dbd940)
 
+### 7. Verify and Configure Active Directory
+Let’s verify the domain setup setup and configure additional features:
+**Check Domain configuration**
+1. Open Server Manager.
+2. Click on Tools in the top-right corner and select Active Directory Users and Computers.
 
-### 7. Simulating Failover Scenarios
-- **Objective**: Test the failover setup between the primary and secondary domain controllers.
-- **Action**: 
-   - Simulate a server failure on the Primary Domain Controller.
-   - Verify that the Secondary Domain Controller takes over successfully and that Active Directory replication is intact.
+![Screenshot From 2025-01-30 19-13-27](https://github.com/user-attachments/assets/b0e9871d-53e5-41be-92fe-8c2d0fbf8352)
 
-### 8. Installing osTicket (Ticketing System)
-- **Objective**: Set up **osTicket** for handling IT support tickets.
-- **Action**: 
-   - Install **IIS** on the Secondary Server VM.
-   - Configure **PHP 8.2** for IIS and enable necessary extensions.
-   - Set up **MySQL** and create a database for **osTicket**.
-   - Install **osTicket** and configure it for use in the environment.
+3. in the left pane:
+  - Expand your domain (e.g., adlab.local or the name you choose).
 
-### 9. Testing Ticketing System
-- **Objective**: Test the functionality of **osTicket** in a domain-joined environment.
-- **Action**: 
-   - Submit test tickets via **osTicket** (e.g., password reset request).
-   - Resolve tickets by performing corresponding actions in **Active Directory**.
-   - Test the entire workflow to ensure smooth integration with the domain environment.
+  ![Screenshot From 2025-01-30 19-15-27](https://github.com/user-attachments/assets/f588f7ff-31cb-42f2-baa6-86e4801d1334)
+
+**Create a Test User**
+1. In Active Directory Users and Computers:
+  - Right-click on Users (or create a new Organizational Unit [OU] for better organization).
+  - Select New > Users.
+
+  ![Screenshot From 2025-01-30 19-17-01](https://github.com/user-attachments/assets/601863c1-5313-4577-81f2-d3787576b5c0)
+
+2. Fill in the user details:
+  - Example: First Name: John, Last  Name: Doe, User logon name: jdoe.
+
+  ![Screenshot From 2025-01-30 19-17-55](https://github.com/user-attachments/assets/991b9da0-9cbe-482e-b4f3-ed626e8a1fe1)\
+
+3. Set a password and uncheck User must change password at next logon (optional for testing purposes).
+
+![Screenshot From 2025-01-30 19-18-34](https://github.com/user-attachments/assets/1c1b2a36-a9f9-412d-bc97-df011c78468b)
+
+4. Complete the wizard.
+
+### 8. Enable Remote Desktop Protocol (RDP)
+1. Open Server Manager and click Local Server on the left panel.
+2. Find Remote Desktop, click Disabled, and enable it:
+  - Check Allow remote connection to this computer.
+  - (Optional) Uncheck Allow connections only from computers running Remote Desktop with Network Level Authentication for testing flexibility.
+
+  ![Screenshot From 2025-01-30 19-21-33](https://github.com/user-attachments/assets/c565f6f5-6dda-404f-a95a-af3d9ea35bd8)
+
+  ![Screenshot From 2025-01-30 19-22-29](https://github.com/user-attachments/assets/5a35cd08-dbad-4ddc-8302-a6e3abb7679b)
+
+3. Apply the changes.
+
+**Test RDP Connections**
+Prepare the Server for RDP:
+1. Ensure the John Doe user (or any test user you created) has permission to use Remote Desktop:
+  - Open System Properties (right-click “This PC” > Properties > Remote Settings).
+
+  ![Screenshot From 2025-01-30 19-24-12](https://github.com/user-attachments/assets/125c98bc-6c00-451f-9e09-28080feca02d)
+
+2. In the Remote Desktop section, click Select Users.
+
+  ![Screenshot From 2025-01-30 19-24-47](https://github.com/user-attachments/assets/255108cd-af40-4cab-ba27-85db67d04f65)
+
+3. Add the John Doe user to the list of allowed users.
+
+  ![Screenshot From 2025-01-30 19-25-08](https://github.com/user-attachments/assets/a50e96c3-d43d-440b-a3fc-19ad374f9a2b)
+
+  ![Screenshot From 2025-01-30 19-25-21](https://github.com/user-attachments/assets/c6290db2-e6b9-4406-97e3-d600086cbf60)
+
+  ![Screenshot From 2025-01-30 19-26-28](https://github.com/user-attachments/assets/06a4700f-38f7-4c84-a911-8892ddb9b7b4)
+
+**Use RDP from Another Device**
+Let’s now connect to the server using RDP from one of the client machines and the host machine:
+1. Since I’m using Linux as host OS, I’ll be using an RDP client called Remmina.
+  - Open Remmina
+
+  ![Screenshot From 2025-01-30 19-28-16](https://github.com/user-attachments/assets/d82517e4-8dbb-4e95-bc36-8f253507abbe)
+
+  - Enter the IP address of the server
+
+  ![Screenshot From 2025-01-30 19-29-15](https://github.com/user-attachments/assets/306f99ef-f623-4e68-9bfb-3de449faef41)
+
+  ![Screenshot From 2025-01-30 19-29-36](https://github.com/user-attachments/assets/ce4e7b09-24b1-46c7-b88f-3a2043d21e56)
+
+  - User the John Doe account credentials (e.g., adlab\jdoe if your domain is adlab.local).
+
+  ![Screenshot From 2025-01-30 19-31-07](https://github.com/user-attachments/assets/99179b29-bfcb-4053-b63c-187d20e2ccc9)
+
+2. Test the connection.
+
+![Screenshot From 2025-01-30 19-33-42](https://github.com/user-attachments/assets/b8befa9c-85a4-48ad-936a-6ee0a35f8cc1)
+
+### 9. Create the Windows Clients VMs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### 10. Final Validation and Verification
 - **Objective**: Verify all configurations and ensure proper system functionality.
