@@ -268,6 +268,106 @@ Let’s now connect to the server using RDP from one of the client machines and 
 ![Screenshot From 2025-01-30 19-33-42](https://github.com/user-attachments/assets/b8befa9c-85a4-48ad-936a-6ee0a35f8cc1)
 
 ### 9. Create the Windows Clients VMs
+**Configuring VMware Settings**
+1. Open VMware Workstation and click File > New Virtual Machine.
+2. Select Custom (advanced) and click Next.
+
+![Screenshot From 2025-01-30 19-45-22](https://github.com/user-attachments/assets/286f9249-e233-4b36-8ca6-077eb2c7442b)
+
+3. For hardware compatibility, choose the latest version supported by your VMware Workstation and click Next.
+
+![Screenshot From 2025-01-30 19-45-30](https://github.com/user-attachments/assets/124708a9-a2cd-40a5-bcc4-a18a7c42d3ce)
+
+4. Choose Install Operating System Later and click Next.
+
+![Screenshot From 2025-01-30 19-45-35](https://github.com/user-attachments/assets/13a91292-0c49-444c-9378-a5431f0614a3)
+
+5. Select Microsoft Windows, and from the dropdown, choose the appropriate version for your Windows. In my case I’ll use Windows 11. Click Next.
+
+![Screenshot From 2025-01-30 19-45-39](https://github.com/user-attachments/assets/ddf2ca74-1ebf-4c1b-817a-fdaf15bb26c8)
+
+6. Name your VM as “AD Client 1” and choose a location for its files.
+
+![Screenshot From 2025-01-30 19-45-56](https://github.com/user-attachments/assets/40970844-9cbb-40fb-a8b3-401dec750fdc)
+
+7. Assign:
+  - 4GB RAM (or more, depending on your system resources).
+  - 2 Processor with 2 cores.
+
+![Screenshot From 2025-01-30 19-46-45](https://github.com/user-attachments/assets/a0f66118-e5f1-4f86-b1cf-16d70409f9c7)
+
+![Screenshot From 2025-01-30 19-46-50](https://github.com/user-attachments/assets/47471853-e45a-434f-a29f-30cce29732a4)
+
+8. Select Use Bridged Networking for the network type (this is crucial for domain communication).
+
+![Screenshot From 2025-01-30 19-46-55](https://github.com/user-attachments/assets/af422649-968f-4e04-8116-78e9b951b1f5)
+
+9. Create a new virtual disk with at least 64GB of storage and click Finish.
+
+![Screenshot From 2025-01-30 19-47-27](https://github.com/user-attachments/assets/b1a96268-84c1-4c72-ac3a-a3ee60240505)
+
+![Screenshot From 2025-01-30 19-47-34](https://github.com/user-attachments/assets/f869cecb-f880-4933-8bc3-d988f19dfba6)
+
+### 10. Install Windows 11
+1. Mount your Windows 11 to the VM’s CD/DVD drive.
+
+![Screenshot From 2025-01-30 19-48-09](https://github.com/user-attachments/assets/579c8c64-3542-486b-b69e-98a9ea68da4a)
+
+2. Power on the VM and proceed with the installation:
+  - Choose a custom installation, create a partition, and complete the installation.
+
+  ![Screenshot From 2025-01-30 19-49-33](https://github.com/user-attachments/assets/7e6bb7f2-df6e-4667-bcea-880805ee19a1)
+
+  ![Screenshot From 2025-01-30 19-49-39](https://github.com/user-attachments/assets/f0a18518-2da4-4236-9f68-878cb6278c7d)
+
+  ![Screenshot From 2025-01-30 19-49-49](https://github.com/user-attachments/assets/e15c326d-dc50-4c31-9be8-99b05c67777b)
+
+  - Click I don't have a product key.
+
+  ![Screenshot From 2025-01-30 19-50-02](https://github.com/user-attachments/assets/93b22f6b-5e20-42ae-97fd-51d1b0dab540)
+
+  - Select you Operating System. (In My case, Windows 11 Pro) 
+  
+  ![Screenshot From 2025-01-30 19-50-18](https://github.com/user-attachments/assets/680890ab-0bae-4791-9956-a5aee845ebf9)
+
+  ![Screenshot From 2025-01-30 19-50-31](https://github.com/user-attachments/assets/6da3736b-a42a-45b6-be56-840b8e89f462)
+
+  ![Screenshot From 2025-01-30 19-50-48](https://github.com/user-attachments/assets/800461d3-279c-4c24-b60e-727940f2c54d)
+
+  ![Screenshot From 2025-01-30 19-51-05](https://github.com/user-attachments/assets/fdc83080-9dab-49d5-a0fe-fec079482c25)
+
+  ![Screenshot From 2025-01-30 19-51-18](https://github.com/user-attachments/assets/dce11e0b-3f0b-4139-97af-3435aacb7ffa)
+
+3. Create a local administrator account during the setup (e.g., ClientAdmin).
+
+  ![Screenshot From 2025-01-30 19-56-47](https://github.com/user-attachments/assets/fbb78414-dec1-4f8f-9f13-44f2a7d0b6f9)
+
+  ![Screenshot From 2025-01-30 19-56-56](https://github.com/user-attachments/assets/9c7287ad-45c5-479f-a714-0f6c96011a5c)
+
+  ![Screenshot From 2025-01-30 19-57-05](https://github.com/user-attachments/assets/1a1b21b9-f34f-4197-8540-02dcb8db2a0f)
+
+  ![Screenshot From 2025-01-30 19-59-30](https://github.com/user-attachments/assets/dc24dd68-b245-48be-add6-e1aa6df183ba)
+
+  ![Screenshot From 2025-01-30 20-00-46](https://github.com/user-attachments/assets/af979da9-fefe-46f1-bb0d-fa87a46f74a7)
+
+  - Here make sure you choose Sign-in options.
+
+  ![Screenshot From 2025-01-30 20-00-55](https://github.com/user-attachments/assets/1cc6f8aa-6da3-4764-aa5a-4b948d519c66)
+
+  - Select **Domain join instead** option.
+
+  ![Screenshot From 2025-01-30 20-01-04](https://github.com/user-attachments/assets/cba9c0a7-597c-4ad9-b410-456b992783bc)
+
+  ![Screenshot From 2025-01-30 20-01-25](https://github.com/user-attachments/assets/4a676e6b-f9a3-41f8-a34d-3174eb668019)
+
+  ![Screenshot From 2025-01-30 20-01-42](https://github.com/user-attachments/assets/cebdc0a7-2838-40cf-9e41-9ba50ffe3caa)
+
+4. Follow the same steps to configure and Install the second client machine.
+
+  ![Screenshot From 2025-01-30 20-15-11](https://github.com/user-attachments/assets/776d845c-6b1f-44c4-966d-c5fa4dbdcac4)
+
+### 11. Configure DNS on the Client VM
+Once the Windows installation is complete:
 
 
 
@@ -285,30 +385,10 @@ Let’s now connect to the server using RDP from one of the client machines and 
 
 
 
+  
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 10. Final Validation and Verification
-- **Objective**: Verify all configurations and ensure proper system functionality.
-- **Action**: 
-   - Test **Active Directory replication** and domain join functionality.
-   - Test **osTicket** by submitting and resolving tickets.
-   - Validate **failover** scenarios by simulating a Domain Controller failure.
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
