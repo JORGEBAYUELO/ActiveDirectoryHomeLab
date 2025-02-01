@@ -368,9 +368,72 @@ Let’s now connect to the server using RDP from one of the client machines and 
 
 ### 11. Configure DNS on the Client VM
 Once the Windows installation is complete:
+1. Log in with the local administrator account you created.
+2. Check Network Configuration:
+  - Open Command Prompt and run ipconfig to verify the client has an IP address in the same range as the server.
 
+  ![Screenshot From 2025-01-30 20-21-06](https://github.com/user-attachments/assets/5d482f88-6fc9-4860-a064-b257294b0388)
+    
+  - Test connectivity to the server by pinging its IP address (ping [server’s IP]).
 
+  ![Screenshot From 2025-01-30 20-22-12](https://github.com/user-attachments/assets/d546652e-c0c8-4e8e-8122-b8ccac53a9ae)
 
+3. Open the Network and Internet Settings:
+  - Right-click the network icon in the system tray and select Open Network & Internet Settings.
+  - Click Change adapter options.
+
+  ![Screenshot From 2025-01-30 20-25-11](https://github.com/user-attachments/assets/79e87af0-9f11-4b51-b770-8ef013ec4eab)
+
+  ![Screenshot From 2025-01-30 20-25-23](https://github.com/user-attachments/assets/e18da74c-ecff-426a-a6e5-8d13fa7505d3)
+
+4. Modify the Active Network Adapter:
+  - Right-click the active network adapter (e.g., Ethernet) and select Properties.
+
+  ![Screenshot From 2025-01-30 20-25-52](https://github.com/user-attachments/assets/92359cac-a1a7-4af7-b814-801b48871545)
+    
+  - Select Internet Protocol Version 4 (TCP/IPv4) and click Properties.
+
+  ![Screenshot From 2025-01-30 20-26-15](https://github.com/user-attachments/assets/2ed2c261-025a-44b9-a588-dd567c46ad63)
+
+5. Set the DNS Server Address:
+  - Choose Use the following DNS server addresses.
+  - For the Preferred DNS Server, enter IP address of your server: In my case 192.168.1.140.
+  - Leave the Alternate DNS Server blank or set it to a public DNS server like 8.8.8.8 (option for fallback).
+
+  ![Screenshot From 2025-01-30 20-26-55](https://github.com/user-attachments/assets/1a5ba645-0fa9-45db-ad62-f99449a971ff)
+
+6. Save and Exit:
+  - Click OK to save the settings.
+7. Disable Internet Protocol Version 6 (TCP/IPv6) then Close.
+
+  ![Screenshot From 2025-01-30 20-27-51](https://github.com/user-attachments/assets/c6420e2a-437a-4f5d-a3ff-b846dd1c3710)
+
+### 12. Configure Network and Join the Domain
+Once the preferred DNS is set up:
+1. Join the Domain:
+  - Open System Properties (right-click “This PC” > Properties > Advanced System Settings > Computer Name tab).
+
+  ![Screenshot From 2025-01-30 20-28-21](https://github.com/user-attachments/assets/fe7dea63-334d-4570-b73a-b354df35699c)
+  
+  ![Screenshot From 2025-01-30 20-28-35](https://github.com/user-attachments/assets/1a449b97-81ad-4f0a-9ffa-78ef46ca5032)
+  
+  - Click Change:
+    - Under “Member of,” select Domain.
+    - Enter your domain name (e.g., adlab.local).
+    
+    ![Screenshot From 2025-01-30 20-28-43](https://github.com/user-attachments/assets/9117249a-ab18-4ee0-aa6f-a2ab59b86412)
+
+    ![Screenshot From 2025-01-30 20-29-04](https://github.com/user-attachments/assets/f8f37fec-a5c3-4b28-80e6-ed2d0a030147)
+
+  - When prompted, enter the credentials of a domain user (e.g., Administrator or John Doe).
+  
+  ![Screenshot From 2025-01-30 20-29-38](https://github.com/user-attachments/assets/36603171-a21e-4f60-acdc-079b65c7ecc0)
+
+  - Restart the client machine when prompted.
+
+  ![Screenshot From 2025-01-30 20-29-56](https://github.com/user-attachments/assets/b0c1bc3d-ec04-4610-8ca0-a28dda2525d6)
+
+  ![Screenshot From 2025-01-30 20-30-25](https://github.com/user-attachments/assets/4515e349-2f89-4cac-a11a-a8fef18ccbd1)
 
 
 
@@ -390,7 +453,16 @@ Once the Windows installation is complete:
 
 
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+
+
+
+
+
+
+
+
 
 ---
 
