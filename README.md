@@ -1039,10 +1039,25 @@ Once you’ve created the groups, assign users to their appropriate roles.
 
 ![Screenshot From 2025-01-31 19-57-22](https://github.com/user-attachments/assets/17a57d81-5584-429c-86a9-7b1ef01e0966)
 
+## Installing osTicket:
+Install and configure osTicket in the environment and simulate a workfolow for IT support.
+### 1. Requirements
+- A web server (IIS or Apache)
+- PHP (version 7.4 or higher recommended compatible with osTicket)
+- MySQL
+- Windows Server for hosting
+- osTicket package (download from osTicket official website)
 
-
-
-
+### 2. Set Up IIS and PHP
+1. Install IIS on Server 2:
+  - Open Server Manager → Add Roles and Features.
+  - Choose Role-based or feature-based installation → Click Next.
+  - Select the Server 2 instance → Click Next.
+  - From the Server Roles list, check Web Server (IIS).
+  - Under Web Server Role (IIS) → Expand Web Server → Application Development.
+  - Check CGI for PHP support.
+  - Include Static Content, HTTP Errors, and Default Document if not already checked.
+  - Proceed through the wizard and install.
 
 
   
