@@ -828,7 +828,216 @@ Once you’ve created the groups, assign users to their appropriate roles.
 
 ## Setting Up a VPN Server:
 ### 1. Install the Remote Access Role
+1. Log in to the Second Server.
+2. Open Server Manager.
+3. Click on Add Roles and Features.
 
+![Screenshot From 2025-01-31 17-40-58](https://github.com/user-attachments/assets/b3033bb2-a4de-41a1-84a6-175759cbbd2f)
+
+4. In the wizard:
+  - Installation Type: Select Role-based or feature-based installation.
+
+  ![Screenshot From 2025-01-31 17-41-18](https://github.com/user-attachments/assets/890a0c91-8a4f-4aa2-a306-12eb3a8eb1bc)
+
+  - Server Selection: Ensure the second server is selected.
+
+  ![Screenshot From 2025-01-31 17-41-24](https://github.com/user-attachments/assets/ebfe9465-fa4f-4fb8-ab75-3202f105c16c)
+
+  - Sever Roles: Check Remote Access, then click Next.
+
+  ![Screenshot From 2025-01-31 17-42-03](https://github.com/user-attachments/assets/4b835920-e418-41d1-82eb-0be261362722)
+
+  - Role Services: Check the following under Remote Access:
+    - DirectAccess and VPN (RAS)
+    - Routing
+
+  ![Screenshot From 2025-01-31 17-43-14](https://github.com/user-attachments/assets/a64f5289-ca85-4452-850a-3986d5c0a5d2)
+
+  - Proceed and click Install.
+
+  ![Screenshot From 2025-01-31 17-43-44](https://github.com/user-attachments/assets/14dd2917-b2e8-4b11-8f35-dbcb3f151e2a)
+
+### 2. Configure the VPN Role
+1. After installation, click Open the Getting Started Wizard in Server Manager.
+
+![Screenshot From 2025-01-31 17-44-55](https://github.com/user-attachments/assets/de4c1910-d515-4662-8f5e-04ade7cf3442)
+
+2. Select Deploy VPN Only (this skips DirectAccess for now).
+
+![Screenshot From 2025-01-31 17-45-21](https://github.com/user-attachments/assets/64d9a81c-fb24-4cad-bbf2-2a5cdc37e99f)
+
+3. The Routing and Remote Access MMC will open.
+  
+### 3. Enable the VPN Server
+1. In the Routing and Remote Access MMC:
+  - Right-click the server name (the second server).
+
+  ![Screenshot From 2025-01-31 17-46-21](https://github.com/user-attachments/assets/325412eb-a1fd-4cb0-a920-fd6620041c29)
+
+  - Select Configure and Enable Routing and Remote Access.
+2. In the wizard:
+  - Configuration: Choose Custom Configuration.
+
+  ![Screenshot From 2025-01-31 17-46-31](https://github.com/user-attachments/assets/472f4007-84b6-412c-8122-2cfaf1ed2d70)
+
+  ![Screenshot From 2025-01-31 17-47-00](https://github.com/user-attachments/assets/4da5e30c-6d91-49ae-bf78-bf5f774bdbc8)
+
+  - Check VPN Access.
+
+  ![Screenshot From 2025-01-31 17-47-19](https://github.com/user-attachments/assets/31aa0635-04b3-45b8-b881-bfe275d63996)
+
+  - Click Finish and then Start Service when prompted.
+
+  ![Screenshot From 2025-01-31 17-47-27](https://github.com/user-attachments/assets/7c61b98c-3af6-4901-907a-113139668159)
+
+  ![Screenshot From 2025-01-31 17-47-46](https://github.com/user-attachments/assets/6d575724-d717-4d68-a8ad-c35ddc6711c8)
+
+### 4. Configure VPN Protocols
+1. In the Routing and Remote Access MMC:
+  - Expand your server name > Right-click Ports > Select Properties.
+
+  ![Screenshot From 2025-01-31 17-49-19](https://github.com/user-attachments/assets/fe3f45e6-a6c6-45c6-978d-5986f456b854)
+
+  - Select WAN Miniport (PPTP) and click Configure.
+    - Ensure Remote access connections (inbound only) is checked.
+
+  ![Screenshot From 2025-01-31 17-49-45](https://github.com/user-attachments/assets/173769c9-5cdf-48ba-a6eb-766caa3f67fa)
+
+  ![Screenshot From 2025-01-31 17-50-49](https://github.com/user-attachments/assets/e88a81ab-0fd6-4f45-aa4e-783b0cd4081d)
+  
+   - Repeat for WAN Miniport (L2TP).
+### 5. Configure IP Address Allocation
+1. In Routing and Remote Access MMC:
+  - Right-click your server name > Select Properties.
+
+  ![Screenshot From 2025-01-31 17-51-52](https://github.com/user-attachments/assets/770c6f7d-6837-4219-82e1-02f6e3b0fe58)
+
+  - Go to the IPv4 tab.
+
+  ![Screenshot From 2025-01-31 17-52-34](https://github.com/user-attachments/assets/465521ae-df3f-4823-9d62-bed97edb9678)
+
+  - Choose Static address pool.
+    - Add a range of IP addresses for VPN clients, e.g., 192.168.1.100 - 192.168.1.150.
+    - Ensure this range doesn’t overlap with your current network.
+
+  ![Screenshot From 2025-01-31 17-53-24](https://github.com/user-attachments/assets/4e693a28-a8ee-466d-9941-c9821ce255b3)
+
+  ![Screenshot From 2025-01-31 17-53-43](https://github.com/user-attachments/assets/a15d44e1-9b11-48a1-a405-433f6770b5a4)
+
+  - Go to the Security tab and make sure inside Authentication Methods **Allow machine certificate authentication for IKEv2** is Checked
+
+  ![Screenshot From 2025-02-01 18-18-39](https://github.com/user-attachments/assets/6a33164b-2bfc-4c20-a5eb-75af1115f486)
+
+  ![Screenshot From 2025-01-31 18-42-13](https://github.com/user-attachments/assets/b7252efd-c7e4-4f42-be47-2754d67c1c94)
+
+  - Inside the same Security tab check **Allow custom IPsec policy for L2TP/IKEv2 connection and create a Preshared Key**
+
+  ![Screenshot From 2025-02-01 18-18-39](https://github.com/user-attachments/assets/e2a0b462-50cb-4073-8350-59062bef86f3)
+
+### 6. Configure Firewall and NAT
+1. Open Windows Defender Firewall with Advanced Security.
+2. Make sure the following Inbound Rules are enabled for:
+  - Routing and Remote Access (PPTP-In) - for Point-to-Point Tunneling Protocol (PPTP).
+  - Routing and Remote Access (GRE-In) - for PPTP's GRE protocol.
+  - Routing and Remote Access (L2TP-In) - if you want to test L2TP with IPsec.
+  - Ensure IKE and AuthIP IPsec Keying Modules (UDP 500 and 4500) are also allowed for L2TP.
+
+![Screenshot From 2025-01-31 17-58-43](https://github.com/user-attachments/assets/c714eae2-2b78-42b4-a32e-fec381f05c8b)
+
+### 7. Steps to Add IKE and AuthIP IPsec Keying Modules (UDP-In and UDP-Out) Rules
+1. Open Windows Defender Firewall with Advanced Security:
+  - Open wf.msc from the Run dialog (Windows + R).
+
+![Screenshot From 2025-02-01 18-34-14](https://github.com/user-attachments/assets/3a0dc294-0e7a-4ac4-8970-0222f107a232)
+
+2. Create a New Inbound Rule:
+  - In the left-hand pane, click Inbound Rules.
+  - In the Actions pane on the right, select New Rule.
+
+![Screenshot From 2025-02-01 18-35-56](https://github.com/user-attachments/assets/25ef2b6f-d371-4d2b-a5f1-24fe79020d5a)
+
+3. Configure the Rule:
+  - Rule Type: Select Port and click Next.
+
+  ![Screenshot From 2025-02-01 18-36-44](https://github.com/user-attachments/assets/489df74b-0486-4b0d-8958-c8119466396b)
+
+  - Protocol and Ports:
+    - Select UDP.
+    - Enter 500, 4500 in the Specific local ports field.
+    - Click Next.
+  
+  ![Screenshot From 2025-02-01 18-37-39](https://github.com/user-attachments/assets/02a72c5c-f414-4141-b5b3-d97a26058481)
+
+  - Action: Select Allow the connection and click Next.
+
+  ![Screenshot From 2025-02-01 18-38-25](https://github.com/user-attachments/assets/0c81f511-a5c2-443e-acda-9d3faa160fa9)
+
+  - Profile: Apply the rule to all profiles (Domain, Private, Public) and click Next.
+
+  ![Screenshot From 2025-02-01 18-38-39](https://github.com/user-attachments/assets/25c3ed8c-d818-48cf-b7e5-662086f9d2c3)
+
+  - Name: Enter a descriptive name like "IKE and AuthIP IPsec Keying Modules (UDP-In)".
+
+  ![Screenshot From 2025-02-01 18-39-39](https://github.com/user-attachments/assets/b55a5510-9dc5-4ea8-b0cf-dde3e9101957)
+
+  - Finish the wizard.
+
+  ![Screenshot From 2025-02-01 18-39-58](https://github.com/user-attachments/assets/7e7ce312-3eca-4f8a-a6ca-29c818f8fc13)
+
+4. Create a Matching Outbound Rule:
+  - Repeat the above steps under Outbound Rules for UDP ports 500 and 4500.
+  - Name the rule "IKE and AuthIP IPsec Keying Modules (UDP-Out)".
+
+  ![Screenshot From 2025-02-01 18-43-14](https://github.com/user-attachments/assets/5712af93-71e2-4e54-b546-894630a63939)
+
+5. Verify the Rules:
+  - After adding the rules, go back to Inbound Rules and Outbound Rules, and confirm that the new rules are listed and enabled.
+6. Test Connectivity:
+  - Once the rules are added, test your VPN connection using L2TP/IPsec from a client machine.
+7. Configure DNS and Authentication
+  - Ensure the DNS server settings on the VPN clients point to your domain controllers for name resolution.
+  - In Routing and Remote Access, under Authentication Methods, ensure Windows Authentication is enabled for domain users.
+8. Go to Active Directory Users and Computer and select the User that will connect through VPN:
+  - Right Click the User (e.g., John Doe).
+  - Go to the Dial-in tab and make sure **Allow access** in the Network Access Permission is checked.
+
+  ![Screenshot From 2025-01-31 19-38-39](https://github.com/user-attachments/assets/1c4613ff-a5a2-416a-8053-525b0032506d)
+
+
+## Configure VPN on the Client Machine:
+### 1. Oen VPN Settings
+1. VPN Settings:
+  - On the client machine, go to Settings > Network & Internet > VPN.
+
+  ![Screenshot From 2025-01-31 18-06-52](https://github.com/user-attachments/assets/f216ce67-d424-4e81-b02b-1f295da63cbf)
+
+  - Click Add a VPN connection.
+
+  ![Screenshot From 2025-01-31 18-06-59](https://github.com/user-attachments/assets/28be2ac4-8e6c-4490-8d1f-35d95c53c175)
+
+2. Enter VPN Connection Details:
+  - VPN Provider: Windows (built-in).
+  - Connection Name: Enter a name (e.g., ADLab VPN).
+  - Server Name or Address: Enter the IP address of the VPN server (e.g., 192.168.1.142).
+  - VPN Type: Select L2TP/IPsec with pre-shared key.
+  - Pre-shared Key: Enter the key you configured earlier in the VPN settings on the server.
+  - Type of Sign-in Info: Select User name and password.
+  - Username and Password: Enter the credentials for a user in your domain (e.g., adlab\jdoe).
+
+![Screenshot From 2025-01-31 18-08-53](https://github.com/user-attachments/assets/f39fa802-eb4e-4f84-a2ad-850cb4b7f7f0)
+
+3. Click Save.
+
+### 2. Connect to the VPN
+1. Go back to Settings > Network & Internet > VPN.
+2. Select your new VPN connection (ADLab VPN) and click Connect.
+3. Wait for it to authenticate and establish the connection.
+
+![Screenshot From 2025-01-31 19-40-23](https://github.com/user-attachments/assets/e0b6a6e3-82c4-458a-be4e-cf7727628048)
+
+![Screenshot From 2025-01-31 19-55-47](https://github.com/user-attachments/assets/64b11e6b-979c-4b9d-96f8-3182f667aaf5)
+
+![Screenshot From 2025-01-31 19-57-22](https://github.com/user-attachments/assets/17a57d81-5584-429c-86a9-7b1ef01e0966)
 
 
 
