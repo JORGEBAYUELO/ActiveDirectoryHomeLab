@@ -1225,20 +1225,7 @@ After completing the installation, osTicket requires you to remove the setup dir
 
   ![Screenshot From 2025-02-01 12-06-21](https://github.com/user-attachments/assets/aa56d61a-ae91-4f79-9a11-270918b7ddca)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**By completing this hands-on lab, I have developed a robust skill set in managing Windows Server environments, Active Directory, remote management, IT support tools, and troubleshooting.**
 
 ---
 
