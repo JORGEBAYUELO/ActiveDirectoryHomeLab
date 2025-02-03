@@ -1100,13 +1100,133 @@ extension=mbstring
 
 ### 5. Configure PHP in IIS
 1. Open IIS Manager.
+
+![Screenshot From 2025-01-31 20-34-48](https://github.com/user-attachments/assets/af58c500-6232-46d6-84f8-e34996076258)
+
 2. Select the server → Click Handler Mappings.
+
+![Screenshot From 2025-01-31 20-35-21](https://github.com/user-attachments/assets/33c95863-abb8-4acb-b128-e2e04854d450)
+
 3. On the right panel, click Add Module Mapping.
   - Request Path: *.php
   - Module: FastCGIModule
   - Executable: Path to php-cgi.exe (e.g., C:\PHP\php-cgi.exe)
   - Name: PHP via FastCGI
+
+![Screenshot From 2025-01-31 20-36-37](https://github.com/user-attachments/assets/a67ed76b-7266-4cfa-902b-8eb74d37ee48)
+
+![Screenshot From 2025-01-31 20-38-02](https://github.com/user-attachments/assets/00acedab-608f-4519-a25b-f171da0830b6)
+
 4. Click OK and restart IIS.
+
+![Screenshot From 2025-01-31 20-38-15](https://github.com/user-attachments/assets/2c5d2c69-2abb-43d1-9044-a736878b2f1b)
+
+![Screenshot From 2025-01-31 20-38-37](https://github.com/user-attachments/assets/3936fa89-8426-4414-92ee-7eeddc3511c8)
+
+### 6. Verify PHP Installation
+1. Create a file called phpinfo.php in C:\inetpub\wwwroot with the content:
+```PHP
+<?php
+phpinfo();
+?>
+```
+![Screenshot From 2025-01-31 20-40-12](https://github.com/user-attachments/assets/58aff22e-6201-421e-8f8b-4a39fe9f7a40)
+
+![Screenshot From 2025-01-31 20-40-21](https://github.com/user-attachments/assets/e9a503b5-8fb3-4bf2-9b06-68d5ab73e3ba)
+
+2. Open a browser and navigate to http://<server-ip>/phpinfo.php to check if PHP is working.
+
+![Screenshot From 2025-01-31 20-41-14](https://github.com/user-attachments/assets/2dec08b4-724d-46ef-8bed-5893106a40fd)
+
+### 7. Install MySQL
+1. Download and install MySQL from [MySQL official website.](https://dev.mysql.com/downloads/installer/)
+2. Run the installer and select Server Only installation.
+
+![Screenshot From 2025-01-31 20-42-20](https://github.com/user-attachments/assets/e6f0c43d-d02b-4f8f-ac31-e9e3b12f8505)
+
+3. During configuration:
+  - Choose the Standard Configuration.
+  - Set a root password (e.g., password123).
+  - Allow MySQL to run as a Windows Service.
+
+![Screenshot From 2025-01-31 20-49-06](https://github.com/user-attachments/assets/bf9d7ada-9376-4b31-bbc4-c52916fbda13)
+
+4. Create a Database for osTicket:
+  - Open MySQL Workbench or command line.
+  - Run the following SQL commands:
+  ```SQL
+CREATE DATABASE osticket;
+CREATE USER 'osticket_user'@'localhost' IDENTIFIED BY 'secure_password';
+GRANT ALL PRIVILEGES ON osticket.* TO 'osticket_user'@'localhost';
+FLUSH PRIVILEGES;
+```
+![Screenshot From 2025-01-31 20-50-48](https://github.com/user-attachments/assets/b33c0bcd-2a89-4e78-993f-08394995cbfb)
+
+![Screenshot From 2025-01-31 20-54-06](https://github.com/user-attachments/assets/c44f42ff-3036-4a4f-8efe-0326be6d4e52)
+
+### 8. Install osTicket
+1. Download osTicket:
+  - Download osTicket from [osTicket official website.](https://osticket.com/download/)
+2. Extract osTicket Files:
+  - Extract the downloaded files.
+  - Rename the upload folder as osTicket
+  - Copy the files to the web root directory: C:\inetpub\wwwroot\osticket.
+
+  ![Screenshot From 2025-01-31 20-55-10](https://github.com/user-attachments/assets/4c5b7813-8404-4e44-80d9-dec9ae78676d)
+  
+3. Set Permissions:
+  - Navigate to C:\inetpub\wwwroot\osticket\include.
+  - Right-click ost-config.php → Properties → Security.
+
+  ![Screenshot From 2025-01-31 20-56-17](https://github.com/user-attachments/assets/e2615bec-b4fc-40b9-92e4-24188f7a4112)
+
+  ![Screenshot From 2025-01-31 20-56-40](https://github.com/user-attachments/assets/ebbe5e15-c3a8-45bf-83bd-c00a73ab2cea)
+
+  - Grant Write permissions to the IIS_IUSRS group.
+
+  ![Screenshot From 2025-01-31 20-57-07](https://github.com/user-attachments/assets/d808e808-3155-4d04-9843-7108a792d984)
+
+4. Open the osTicket Installer:
+  - Open a browser and navigate to http://<server-ip>/osticket.
+
+  ![Screenshot From 2025-01-31 21-34-05](https://github.com/user-attachments/assets/39b6b6d6-d5b8-452a-b990-d60deb5ce788)
+
+  - Follow the on-screen instructions:
+    - Enter database details.
+    - Database Name: osticket
+    - Username: osticket_user
+    - Password: secure_password
+
+  ![Screenshot From 2025-01-31 21-44-24](https://github.com/user-attachments/assets/c34ec561-f180-4e7f-addb-edd0aa84fa4c)
+
+  ![Screenshot From 2025-01-31 21-44-30](https://github.com/user-attachments/assets/ecbc983f-dbf8-4e05-9b34-a437edd989a3)
+
+  ![Screenshot From 2025-01-31 21-46-33](https://github.com/user-attachments/assets/3c196dfe-3e96-442d-bd54-8fe82ee02ebb)
+
+  - Create an admin account for osTicket.
+
+  ![Screenshot From 2025-01-31 21-55-44](https://github.com/user-attachments/assets/0bb7a05b-869b-4317-9d1d-71831f61cf61)
+
+  ![Screenshot From 2025-01-31 21-56-00](https://github.com/user-attachments/assets/1690b4ff-26aa-46b1-91c7-4e2ad8dc8632)
+
+### 9. Post-Installation osTicket Configuration
+After completing the installation, osTicket requires you to remove the setup directory for security reasons.
+1. Remove Setup Directory (Security Measure)
+  - Open File Explorer and navigate to C:\inetpub\wwwroot\osTicket\setup
+
+  ![Screenshot From 2025-02-01 11-53-46](https://github.com/user-attachments/assets/80ff22df-0749-40fb-8031-979e9a66da83)
+
+  ![Screenshot From 2025-02-01 11-53-52](https://github.com/user-attachments/assets/ce0decb2-5a09-4135-a518-706b1fbd2395)
+
+  - Delete the setup folder.
+  - Confirm the deletion and refresh your osTicket dashboard to ensure no security warning appears.
+
+  ![Screenshot From 2025-02-01 12-06-16](https://github.com/user-attachments/assets/5a7684ad-187c-4463-a062-659e29ce038b)
+
+  ![Screenshot From 2025-02-01 12-06-21](https://github.com/user-attachments/assets/aa56d61a-ae91-4f79-9a11-270918b7ddca)
+
+
+
 
 
 
