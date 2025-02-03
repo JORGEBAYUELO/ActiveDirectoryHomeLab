@@ -28,7 +28,7 @@ The lab also features **osTicket,** an **open-source** **ticketing system,** whi
 
 This environment provided valuable practical experience in **user support, ticketing management, software troubleshooting, and database administration.**
 
-## You'll need the following:
+## Requirements:
 
 To complete this lab setup, the following software and tools are required:
 
