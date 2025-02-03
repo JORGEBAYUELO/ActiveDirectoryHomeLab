@@ -4,7 +4,7 @@ This repository contains detailed instructions for setting up a **Windows Active
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Overview of The Active Directory Home Lab](#overview-of-the-active-directory-home-lab)
 - [Requirements](#requirements)
 - [Step-by-Step Setup](#step-by-step-setup)
   - [VMware Configuration](#1-vmware-configuration)
