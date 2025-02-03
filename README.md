@@ -6,7 +6,7 @@ This repository contains detailed instructions for setting up a **Windows Active
 
 - [Overview of The Active Directory Home Lab](#overview-of-the-active-directory-home-lab)
 - [Requirements](#requirements)
-- [Step-by-Step Setup](#step-by-step-setup)
+- [VMware Setup](#vmware-setup)
   - [VMware Configuration](#1-vmware-configuration)
   - [Installing Windows Server](#2-installing-windows-server)
   - [Configuring Active Directory (Primary Server)](#3-configuring-active-directory-primary-server)
@@ -38,7 +38,7 @@ To complete this lab setup, the following software and tools are required:
 - **Active Directory Domain Services (AD DS)** Role for the domain controller
 - **PHP 8.2**, **MySQL**, and **osTicket** For the ticketing system
 
-## VMware Set up:
+## VMware Setup:
 
 ### 1. Prepare VMware Workstation
 - **Objective**: Set up VMware Workstation and create the VMs for primary server, secondary server (failover), and two client machines.
