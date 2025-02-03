@@ -1,4 +1,4 @@
-# Windows Active Directory Home Lab Setup
+# 📂 Windows Active Directory Home Lab Setup
 
 This repository contains detailed instructions for setting up a **Windows Active Directory Home Lab** using VMware Workstation. The lab includes a primary domain controller, a secondary domain controller for failover scenarios, and two client machines. Additionally, we set up **osTicket**, a web-based ticketing system, integrated into the Active Directory environment.
 
