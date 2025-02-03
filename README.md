@@ -1046,23 +1046,67 @@ Install and configure osTicket in the environment and simulate a workfolow for I
 - PHP (version 7.4 or higher recommended compatible with osTicket)
 - MySQL
 - Windows Server for hosting
-- osTicket package (download from osTicket official website)
+- osTicket package download from [osTicket official website](https://osticket.com/download/)
 
 ### 2. Set Up IIS and PHP
 1. Install IIS on Server 2:
   - Open Server Manager → Add Roles and Features.
   - Choose Role-based or feature-based installation → Click Next.
+
+  ![Screenshot From 2025-01-31 20-04-52](https://github.com/user-attachments/assets/3031b400-217e-4849-b58d-406d6f0d213a)
+
   - Select the Server 2 instance → Click Next.
+
+  ![Screenshot From 2025-01-31 20-05-10](https://github.com/user-attachments/assets/751452c4-0918-43f3-9069-71d77df89218)
+
   - From the Server Roles list, check Web Server (IIS).
   - Under Web Server Role (IIS) → Expand Web Server → Application Development.
   - Check CGI for PHP support.
   - Include Static Content, HTTP Errors, and Default Document if not already checked.
+
+  ![Screenshot From 2025-01-31 20-06-05](https://github.com/user-attachments/assets/d6da15c5-bc69-4529-8357-cd9f25750620)
+
+  ![Screenshot From 2025-01-31 20-08-02](https://github.com/user-attachments/assets/8c2d3220-a6b2-4a35-84e6-7838fe8ab498)
+
   - Proceed through the wizard and install.
 
+  ![Screenshot From 2025-01-31 20-08-37](https://github.com/user-attachments/assets/81dc4c31-555c-4478-bae0-4dbb30f78435)
 
-  
+### 3. Download PHP (NTS) version for Windows
+1. Download the latest PHP 8.x or compatible version for osTicket [PHP official website.](https://windows.php.net/download/#php-8.4-nts-vs17-x64)
+2. Extract it to a folder in C:\PHP.
 
+![Screenshot From 2025-01-31 20-28-52](https://github.com/user-attachments/assets/24047f4f-413f-48be-9092-51a7d7129988)
 
+### 4. Configure PHP
+1. Rename php.ini-production to php.ini.
+
+![Screenshot From 2025-01-31 20-30-17](https://github.com/user-attachments/assets/7d01c634-99c7-43ea-aa35-1867acf12e90)
+
+2. Open php.ini with a text editor and configure:
+  - Uncomment extension_dir = "ext" (remove the ; at the beginning).
+
+  ![Screenshot From 2025-01-31 20-32-08](https://github.com/user-attachments/assets/e52a807d-3267-4029-ae32-690bc13645fe)
+
+  - Enable these extensions by uncommenting:
+  ```PlaiText
+extension=mysqli
+extension=curl
+extension=mbstring
+```
+![Screenshot From 2025-01-31 20-33-33](https://github.com/user-attachments/assets/9777cf7c-a12f-45d6-b1bd-eb524be55642)
+
+3. Save the file.
+
+### 5. Configure PHP in IIS
+1. Open IIS Manager.
+2. Select the server → Click Handler Mappings.
+3. On the right panel, click Add Module Mapping.
+  - Request Path: *.php
+  - Module: FastCGIModule
+  - Executable: Path to php-cgi.exe (e.g., C:\PHP\php-cgi.exe)
+  - Name: PHP via FastCGI
+4. Click OK and restart IIS.
 
 
 
