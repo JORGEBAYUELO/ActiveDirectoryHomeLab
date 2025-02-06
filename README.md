@@ -16,7 +16,7 @@ This repository contains detailed instructions for setting up a **Windows Active
   - [Promote the Server to a Domain Controller](#2-promote-the-server-to-a-domain-controller)
   - [Verify and Configure Active Directory](#3-verify-and-configure-active-directory)
   - [Create a Test User](#4-create-a-test-user)
-- [Enable Remote Desktop Protocol (RDP)](#enable-remote-desktop-protocol)
+- [Enable Remote Desktop Protocol](#enable-remote-desktop-protocol)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -216,7 +216,7 @@ Let’s verify the domain setup setup and configure additional features:
 
 4. Complete the wizard.
 
-## Enable Remote Desktop Protocol (RDP):
+## Enable Remote Desktop Protocol:
 ### 1. Enabling and Configuring Remote Desktop Protocol (RDP)
 1. Open Server Manager and click Local Server on the left panel.
 2. Find Remote Desktop, click Disabled, and enable it:
