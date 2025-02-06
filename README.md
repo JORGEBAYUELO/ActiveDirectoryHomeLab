@@ -10,7 +10,7 @@ This repository contains detailed instructions for setting up a **Windows Active
   - [Prepare VMware Workstation](#1-prepare-vmware-workstation)
   - [Create the Virtual Machines](#2-create-the-virtual-machines)
   - [Create The Windows Server Virtual Machine](#3-create-the-windows-server-virtual-machine)
-- [Installing Windows Server 2022](installing-windows-server-2022)
+- [Installing Windows Server 2022](#installing-windows-server-2022)
 - [Contributing](#contributing)
 - [License](#license)
 
