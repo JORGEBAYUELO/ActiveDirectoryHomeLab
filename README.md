@@ -11,6 +11,8 @@ This repository contains detailed instructions for setting up a **Windows Active
   - [Create the Virtual Machines](#2-create-the-virtual-machines)
   - [Create The Windows Server Virtual Machine](#3-create-the-windows-server-virtual-machine)
 - [Installing Windows Server 2022](#installing-windows-server-2022)
+- [Configure The Domain Controller](#configure-the-domain-controller)
+  - [Setting up Active Directory Domain Services](#1-setting-up-active-directory-domain-services)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -119,7 +121,7 @@ We’ll now create four virtual machines:
 
 ![Screenshot From 2025-01-30 18-48-13](https://github.com/user-attachments/assets/68e4da8c-e794-4856-b388-9c371b064df4)
 
-## Configure the Domain Controller:
+## Configure The Domain Controller:
 ### 1. Setting up Active Directory Domain Services
 We’ll now install the Active Directory Domain Services (AD DS) role and promote this server to a Domain Controller.
 1. Open Server Manager
