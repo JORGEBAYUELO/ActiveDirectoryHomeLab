@@ -7,18 +7,20 @@ This repository contains detailed instructions for setting up a **Windows Active
 - [Overview of The Active Directory Home Lab](#overview-of-the-active-directory-home-lab)
 - [Requirements](#requirements)
 - [VMware Setup](#vmware-setup)
-  - [Prepare VMware Workstation](#1-prepare-vmware-workstation)
-  - [Create the Virtual Machines](#2-create-the-virtual-machines)
-  - [Create The Windows Server Virtual Machine](#3-create-the-windows-server-virtual-machine)
 - [Installing Windows Server 2022](#installing-windows-server-2022)
 - [Configure The Domain Controller](#configure-the-domain-controller)
-  - [Setting up Active Directory Domain Services](#1-setting-up-active-directory-domain-services)
-  - [Promote the Server to a Domain Controller](#2-promote-the-server-to-a-domain-controller)
-  - [Verify and Configure Active Directory](#3-verify-and-configure-active-directory)
-  - [Create a Test User](#4-create-a-test-user)
 - [Enable Remote Desktop Protocol](#enable-remote-desktop-protocol)
-- [Contributing](#contributing)
-- [License](#license)
+- [Create the Windows Clients VMs](#create-the-windows-clients-vms)
+- [Install Windows 11](#install-windows-11)
+- [Configure DNS on the Client VM](#configure-dns-on-the-client-vm)
+- [Simulating Failover Scenarios](#simulate-failover-scenarios)
+- [Creating a New Group Policy Object](#creating-a-new-group-policy-object)
+- [Testing User Roles](#testing-user-roles)
+- [Create a Shared Folder and Assign Permissions](#create-a-shared-folder-and-assign-permissions)
+- [Map a Network Drive On Client Machine](#map-a-network-drive-on-client-machine)
+- [Setting Up a VPN Server](#setting-up-a-vpn-server)
+- [Configure VPN on the Client Machine](#configure-vpn-on-the-client-machine)
+- [Installing osTicket](#installing-osticket)
 
 ## Overview of The Active Directory Home Lab
 
@@ -613,7 +615,7 @@ This involves promoting another server in the lab as a secondary (replica) domai
 
   ![Screenshot From 2025-01-31 15-18-11](https://github.com/user-attachments/assets/4d2951fc-ea8e-426d-8fd9-7835a338e012)
 
-## Creating a New Group Policy Object (GPO):
+## Creating a New Group Policy Object:
 ### 1. Create a New Group Policy Object and Organizational Unit
 1. Log in to the primary domain controller (ADLab-DC1).
 2. Open Group Policy Management (gpmc.msc) from the Start menu or Server Manager.
