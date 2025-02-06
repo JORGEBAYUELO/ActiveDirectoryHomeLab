@@ -16,7 +16,7 @@ This repository contains detailed instructions for setting up a **Windows Active
   - [Promote the Server to a Domain Controller](#2-promote-the-server-to-a-domain-controller)
   - [Verify and Configure Active Directory](#3-verify-and-configure-active-directory)
   - [Create a Test User](#4-create-a-test-user)
-- [Enable Remote Desktop Protocol (RDP)](#enable-remote-desktop-protocol-(rdp))
+- [Enable Remote Desktop Protocol (RDP)](#enable-remote-desktop-protocol)
 - [Contributing](#contributing)
 - [License](#license)
 
