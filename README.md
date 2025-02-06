@@ -9,7 +9,7 @@ This repository contains detailed instructions for setting up a **Windows Active
 - [VMware Setup](#vmware-setup)
   - [Prepare VMware Workstation](#1-prepare-vmware-workstation)
   - [Create the Virtual Machines](#2-create-the-virtual-machines)
-  - [Create the First Virtual Machine](#3-create-the-first-virtual-machine-(windows-server))
+  - [Create The Windows Server Virtual Machine](#3-create-the-windows-server-virtual-machine)
 - [Installing Windows Server 2022](installing-windows-server-2022)
 - [Contributing](#contributing)
 - [License](#license)
@@ -50,7 +50,7 @@ We’ll now create four virtual machines:
 3. Client Machine 1
 4. Client Machine 2
 
-### 3. Create the First Virtual Machine (Windows Server)
+### 3. Create The Windows Server Virtual Machine
 1. Open VMware Workstation and click on File > New Virtual Machine.
 2. Select Custom (advanced) and click Next.
    
