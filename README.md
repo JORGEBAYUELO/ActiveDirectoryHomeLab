@@ -13,6 +13,10 @@ This repository contains detailed instructions for setting up a **Windows Active
 - [Installing Windows Server 2022](#installing-windows-server-2022)
 - [Configure The Domain Controller](#configure-the-domain-controller)
   - [Setting up Active Directory Domain Services](#1-setting-up-active-directory-domain-services)
+  - [Promote the Server to a Domain Controller](#2-promote-the-server-to-a-domain-controller)
+  - [Verify and Configure Active Directory](#3-verify-and-configure-active-directory)
+  - [Create a Test User](#4-create-a-test-user)
+- [Enable Remote Desktop Protocol (RDP)](#enable-remote-desktop-protocol-(rdp))
 - [Contributing](#contributing)
 - [License](#license)
 
