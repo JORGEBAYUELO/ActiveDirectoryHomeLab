@@ -13,7 +13,7 @@ This repository contains detailed instructions for setting up a **Windows Active
 - [Create the Windows Clients VMs](#create-the-windows-clients-vms)
 - [Install Windows 11](#install-windows-11)
 - [Configure DNS on the Client VM](#configure-dns-on-the-client-vm)
-- [Simulating Failover Scenarios](#simulate-failover-scenarios)
+- [Simulating Failover Scenarios](#simulating-failover-scenarios)
 - [Creating a New Group Policy Object](#creating-a-new-group-policy-object)
 - [Testing User Roles](#testing-user-roles)
 - [Create a Shared Folder and Assign Permissions](#create-a-shared-folder-and-assign-permissions)
